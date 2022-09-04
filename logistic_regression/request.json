@@ -1,0 +1,22 @@
+{
+  "displayName": "BATCH_DISPLAY_NAME",
+  "model": "projects/PROJECT_ID/locations/REGION/models/MODEL_ID",
+  "inputConfig": {
+    "instancesFormat": "jsonl",
+    "gcsSource": {
+      "uris": ["gs://GCS_BUCKET/GCS_PATH/batch_prediction.jsonl"]
+    }
+  },
+  "outputConfig": {
+    "predictionsFormat": "jsonl",
+    "gcsDestination": {
+      "outputUriPrefix": "gs://GCS_BUCKET/GCS_PATH/"
+    }
+  },
+  "dedicatedResources" : {
+    "machineSpec" : {
+      "machineType": "MACHINE_TYPE"
+    },
+    "startingReplicaCount": 1
+  }
+}
