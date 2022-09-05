@@ -26,6 +26,7 @@ async def health():
     return 200
 
 def log_reg(x_):
+    x_ = np.concatenate((np.ones((x_.shape[0], 1)), x_), axis=1) # add bias term
     return 1 / (1 + np.exp(-np.dot(x_, param)))
 
 @app.post(AIP_PREDICT_ROUTE)
