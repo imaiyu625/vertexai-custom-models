@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 header = ['ts_click', 'ts_cv', 'int1', 'int2', 'int3', 'int4', 'int5', 'int6', 'int7', 'int8', 'cat1', 'cat2', 'cat3', 'cat4', 'cat5', 'cat6', 'cat7', 'cat8', 'cat9']
-df_criteo = pd.read_table('data.txt', names=header)
+df_criteo = pd.read_table('criteo_conversion_logs/data.txt', names=header)
 
 # remove rows where ts_click is greater than ts_cv
 df_criteo.drop(df_criteo.index[df_criteo.ts_click > df_criteo.ts_cv], axis=0, inplace=True)
