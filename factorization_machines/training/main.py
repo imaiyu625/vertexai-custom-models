@@ -39,7 +39,7 @@ def fit(df):
     y_ = df[0].to_numpy()
     x_ = df.drop(0, axis=1).to_numpy()
     x_ = np.concatenate((np.ones((x_.shape[0], 1)), x_), axis=1) # add bias term
-    w_ = np.ones(x_.shape[1] * (args.nfactors + 1)) * .1**3
+    w_ = np.ones(x_.shape[1] * (args.nfactors + 1)) * 1e-3
     print('negative log likelihood:', loss_func(w_, x_, y_))
     wopt_ = optimize.minimize(loss_func, w_, args=(x_, y_), method='L-BFGS-B').x
     print('negative log likelihood:', loss_func(wopt_, x_, y_))
