@@ -19,7 +19,7 @@ MACHINE_TYPE=n1-standard-4
 REGION=YOUR_REGION
 WORK_BUCKET=YOUR_GCS_BUCKET
 WORK_PATH=YOUR_GCS_PATH
-N_FACTORS=DIMENSIONALITY_OF_FACTORIZATION
+NUM_FACTORS=DIMENSIONALITY_OF_FACTORIZATION
 
 CONTAINER_IMAGE_URI=$(gcloud beta container images describe \
   gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME}:latest \
@@ -29,7 +29,7 @@ gcloud beta ai custom-jobs create \
   --display-name=$DISPLAY_NAME \
   --region=$REGION \
   --worker-pool-spec=machine-type=$MACHINE_TYPE,replica-count=1,container-image-uri=$CONTAINER_IMAGE_URI \
-  --args="gs://${WORK_BUCKET}/${WORK_PATH}/data.csv","--output=gs://${WORK_BUCKET}/${WORK_PATH}/","--nfactors=${N_FACTORS}"
+  --args="gs://${WORK_BUCKET}/${WORK_PATH}/data.csv","--output=gs://${WORK_BUCKET}/${WORK_PATH}/","--nfactors=${NUM_FACTORS}"
 ```
 
 # Deploy the created model
