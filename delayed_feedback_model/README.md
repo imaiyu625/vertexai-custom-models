@@ -4,8 +4,11 @@ see the [original paper](https://www.researchgate.net/publication/266660247_Mode
 $$\text{LogLikelihood} = \sum_{i,y_i=1} \log p(\mathbf{x}_i) + m(\mathbf{x}_i) \log \lambda(\mathbf{x}_i) + \log m(\mathbf{x}_i) + (m(\mathbf{x}_i)-1) \log d_i - (\lambda(\mathbf{x}_i)d_i)^{m(\mathbf{x}_i)} + \sum_{i,y_i=0} \log\left[1 - p(\mathbf{x}_i) + p(\mathbf{x}_i) \exp(-(\lambda(\mathbf{x}_i) e_i)^{m(\mathbf{x}_i})\right]$$
 
 where
+
 $p(\mathbf{x}_i) = \frac{1}{1 + \exp(- \mathbf{w}_{\text{lr}}^{\top} \mathbf{x}_i)}$ means the probability of logistic regression,
+
 $\lambda(\mathbf{x}_i) = \exp(\mathbf{w}_{\text{rate}}^{\top} \mathbf{x}_i)$ means the rate (inverse scale) parameter of Weibull distribution,
+
 $m(\mathbf{x}_i) = \exp(\mathbf{w}_{\text{shape}}^{\top} \mathbf{x}_i)$ means the shape parameter of Weibull distribution
 
 especially $m(\mathbf{x}_i) = 1$, then the same exponential distribution as in the original paper
@@ -60,6 +63,8 @@ same as [logistic_regression](https://github.com/imaiyu625/vertexai-custom-model
 same as [logistic_regression](https://github.com/imaiyu625/vertexai-custom-models/blob/main/logistic_regression/README.md#make-endpoint)
 
 ## Online prediction
+first column is the expected time from ts_click to ts_cv, and the second and subsequent columns are the features
+
 ```bash
 curl -X POST \
   -H "Authorization: Bearer $(gcloud auth print-access-token)" \
