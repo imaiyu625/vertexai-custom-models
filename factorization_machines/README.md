@@ -1,3 +1,6 @@
+# Factorization Machines
+see the [original paper](https://www.researchgate.net/publication/220766482_Factorization_Machines) for details
+
 # Preprocessing data
 same as [logistic_regression](https://github.com/imaiyu625/vertexai-custom-models/blob/main/logistic_regression/README.md#preprocessing-data)
 
