@@ -27,7 +27,7 @@ async def health():
 
 def logistic_regression(x_):
     x_ = np.concatenate((np.ones((x_.shape[0], 1)), x_), axis=1) # add bias term
-    return 1 / (1 + np.exp(-np.dot(x_, param)))
+    return 1 / (1 + np.exp(-np.dot(param, x_.T)))
 
 @app.post(AIP_PREDICT_ROUTE)
 async def predict(request: Request):

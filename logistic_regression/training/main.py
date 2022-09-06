@@ -21,7 +21,7 @@ bucket = storage_client.bucket(parsed_url.netloc)
 blob = bucket.blob(parsed_url.path.lstrip('/'))
 
 def loss_func(w_, x_, y_):
-    p_ = 1 / (1 + np.exp(-np.dot(x_, w_)))
+    p_ = 1 / (1 + np.exp(-np.dot(w_, x_.T)))
     ll = np.dot(y_.T, np.log(p_)) + np.dot(1 - y_.T, np.log(1 - p_))
     return - ll / len(y_)
 

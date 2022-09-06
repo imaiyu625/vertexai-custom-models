@@ -27,7 +27,7 @@ async def health():
 
 def factorization_machines(x_):
     x_ = np.concatenate((np.ones((x_.shape[0], 1)), x_), axis=1) # add bias term
-    wx_ = np.dot(x_, param['w_'])
+    wx_ = np.dot(param['w_'], x_.T)
     vx_ = list()
     for x in x_.reshape(x_.shape[0], 1, x_.shape[1]):
         x = np.hsplit(x, [1])[1] # remove bias term

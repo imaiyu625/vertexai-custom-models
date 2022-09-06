@@ -29,7 +29,7 @@ def __parse_param(w_, x_):
 
 def loss_func(w_, x_, y_):
     w_, v_ij = __parse_param(w_, x_)
-    wx_ = np.dot(x_, w_)
+    wx_ = np.dot(w_, x_.T)
     vx_ = list()
     for x in x_.reshape(x_.shape[0], 1, x_.shape[1]):
         x = np.hsplit(x, [1])[1] # remove bias term
