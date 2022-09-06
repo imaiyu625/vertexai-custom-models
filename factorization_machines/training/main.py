@@ -21,13 +21,15 @@ parsed_url = urlparse(args.input)
 bucket = storage_client.bucket(parsed_url.netloc)
 blob = bucket.blob(parsed_url.path.lstrip('/'))
 
-def loss_func(w_, x_, y_):
+def __parse_param(w_, x_):
     w_, v_ = np.hsplit(w_.reshape((x_.shape[1], args.nfactors + 1)), [1])
     v_ = np.vsplit(v_, [1])[1] # remove bias term
-    wx_ = np.dot(x_, w_.T.flatten())
-
     v_ij = np.triu(np.dot(v_, v_.T), k=1)
+    return w_.T.flatten(), v_ij
 
+def loss_func(w_, x_, y_):
+    w_, v_ij = __parse_param(w_, x_)
+    wx_ = np.dot(x_, w_)
     vx_ = list()
     for x in x_.reshape(x_.shape[0], 1, x_.shape[1]):
         x = np.hsplit(x, [1])[1] # remove bias term
@@ -46,7 +48,8 @@ def fit(df):
     print('negative log likelihood:', loss_func(w_, x_, y_))
     wopt_ = optimize.minimize(loss_func, w_, args=(x_, y_), method='L-BFGS-B').x
     print('negative log likelihood:', loss_func(wopt_, x_, y_))
-    return wopt_.reshape((x_.shape[1], args.nfactors + 1))
+    w_, v_ij = __parse_param(wopt_, x_)
+    return {'w_': w_, 'v_ij': v_ij}
 
 raw_data = pd.read_csv(BytesIO(blob.download_as_bytes()), header=None)
 param = fit(raw_data)
