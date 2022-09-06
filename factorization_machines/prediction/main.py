@@ -16,6 +16,10 @@ bucket = storage_client.bucket(parsed_url.netloc)
 blob = bucket.blob(parsed_url.path.lstrip('/'))
 param = pickle.loads(blob.download_as_string())
 
+w_, v_ = np.hsplit(param, [1])
+v_ = np.vsplit(v_, [1])[1] # remove bias term
+v_ij = np.triu(np.dot(v_, v_.T), k=1)
+
 app = FastAPI()
 
 AIP_HEALTH_ROUTE = os.environ.get('AIP_HEALTH_ROUTE', '/health')
@@ -27,12 +31,7 @@ async def health():
 
 def factorization_machines(x_):
     x_ = np.concatenate((np.ones((x_.shape[0], 1)), x_), axis=1) # add bias term
-    w_, v_ = np.hsplit(param, [1])
-    v_ = np.vsplit(v_, [1])[1] # remove bias term
     wx_ = np.dot(x_, w_.T.flatten())
-
-    v_ij = np.triu(np.dot(v_, v_.T), k=1)
-
     vx_ = list()
     for x in x_.reshape(x_.shape[0], 1, x_.shape[1]):
         x = np.hsplit(x, [1])[1] # remove bias term
