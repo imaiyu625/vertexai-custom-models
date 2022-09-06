@@ -33,8 +33,8 @@ def loss_func(w_, x_, y_):
     vx_ = list()
     for x in x_.reshape(x_.shape[0], 1, x_.shape[1]):
         x = np.hsplit(x, [1])[1] # remove bias term
-        x_ij = np.tril(np.dot(x.T, x), k=-1)
-        vx_.append(np.diag(np.dot(v_ij, x_ij)).sum())
+        x_ij = np.triu(np.dot(x.T, x), k=1)
+        vx_.append((v_ij * x_ij).sum())
     p_ = 1 / (1 + np.exp(-(wx_ + vx_)))
     ll = np.dot(y_.T, np.log(p_)) + np.dot(1 - y_.T, np.log(1 - p_))
     return - ll / len(y_)

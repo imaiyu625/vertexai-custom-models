@@ -31,8 +31,8 @@ def factorization_machines(x_):
     vx_ = list()
     for x in x_.reshape(x_.shape[0], 1, x_.shape[1]):
         x = np.hsplit(x, [1])[1] # remove bias term
-        x_ij = np.tril(np.dot(x.T, x), k=-1)
-        vx_.append(np.diag(np.dot(param['v_ij'], x_ij)).sum())
+        x_ij = np.triu(np.dot(x.T, x), k=1)
+        vx_.append((param['v_ij'] * x_ij).sum())
     return 1 / (1 + np.exp(-(wx_ + vx_)))
 
 @app.post(AIP_PREDICT_ROUTE)
