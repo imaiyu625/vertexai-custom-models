@@ -28,7 +28,7 @@ gcloud beta ai custom-jobs create \
   --display-name=$DISPLAY_NAME \
   --region=$REGION \
   --worker-pool-spec=machine-type=$MACHINE_TYPE,replica-count=1,container-image-uri=$CONTAINER_IMAGE_URI \
-  --args="gs://${WORK_BUCKET}/${WORK_PATH}/data.csv","--output=gs://${WORK_BUCKET}/${WORK_PATH}/"
+  --args="gs://${WORK_BUCKET}/${WORK_PATH}/data.csv","--output=gs://${WORK_BUCKET}/${WORK_PATH}/${DISPLAY_NAME}/"
 
 # wait until status is JOB_STATE_SUCCEEDED
 gcloud beta ai custom-jobs list \
