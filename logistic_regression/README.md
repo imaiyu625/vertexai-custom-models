@@ -10,7 +10,7 @@ CONTAINER_IMAGE_NAME=YOUR_TRAINING_CONTAINER_IMAGE_NAME
 
 gcloud builds submit \
   --region=${REGION} \
-  --tag gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME} \
+  --tag=gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME} \
   ./training
 ```
 
@@ -47,7 +47,7 @@ CONTAINER_IMAGE_NAME=YOUR_PREDICTION_CONTAINER_IMAGE_NAME
 
 gcloud builds submit \
   --region=${REGION} \
-  --tag gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME} \
+  --tag=gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME} \
   ./prediction
 ```
 
