@@ -6,14 +6,7 @@ same as [logistic_regression](https://github.com/imaiyu625/vertexai-custom-model
 
 # Create model
 ## Push container image for training
-```bash
-PROJECT_ID=$(gcloud config list project --format="value(core.project)")
-CONTAINER_IMAGE_NAME=fm-training
-
-docker image build ./training -t $CONTAINER_IMAGE_NAME
-docker tag $CONTAINER_IMAGE_NAME gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME}:latest
-docker image push gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME}:latest
-```
+same as [logistic_regression](https://github.com/imaiyu625/vertexai-custom-models/blob/main/logistic_regression/README.md#push-container-image-for-training)
 
 ## Execute custom training job on Vertex AI
 ```bash
@@ -36,17 +29,7 @@ gcloud beta ai custom-jobs create \
 ```
 
 # Deploy the created model
-## Push container image for prediction
-```bash
-CONTAINER_IMAGE_NAME=fm-prediction
-
-docker image build ./prediction -t $CONTAINER_IMAGE_NAME
-docker tag $CONTAINER_IMAGE_NAME gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME}:latest
-docker image push gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME}:latest
-```
-
-## Upload model artifact
-same as [logistic_regression](https://github.com/imaiyu625/vertexai-custom-models/blob/main/logistic_regression/README.md#upload-model-artifact)
+same as [logistic_regression](https://github.com/imaiyu625/vertexai-custom-models/blob/main/logistic_regression/README.md#deploy-the-created-model)
 
 # Make endpoint
 same as [logistic_regression](https://github.com/imaiyu625/vertexai-custom-models/blob/main/logistic_regression/README.md#make-endpoint)

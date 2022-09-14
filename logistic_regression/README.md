@@ -5,23 +5,24 @@ execute preprocess_iris.py and upload data.csv to GCS
 ## Push container image for training
 ```bash
 PROJECT_ID=$(gcloud config list project --format="value(core.project)")
-CONTAINER_IMAGE_NAME=lr-training
+REGION=YOUR_REGION
+CONTAINER_IMAGE_NAME=YOUR_TRAINING_CONTAINER_IMAGE_NAME
 
-docker image build ./training -t $CONTAINER_IMAGE_NAME
-docker tag $CONTAINER_IMAGE_NAME gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME}:latest
-docker image push gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME}:latest
+gcloud builds submit \
+  --region=${REGION} \
+  --tag gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME} \
+  ./training
 ```
 
 ## Execute custom training job on Vertex AI
 ```bash
 DISPLAY_NAME=lr-iris
 MACHINE_TYPE=n1-standard-4
-REGION=YOUR_REGION
 WORK_BUCKET=YOUR_GCS_BUCKET
 WORK_PATH=YOUR_GCS_PATH
 
 CONTAINER_IMAGE_URI=$(gcloud beta container images describe \
-  gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME}:latest \
+  gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME} \
   --format="value(image_summary.fully_qualified_digest)")
 
 gcloud beta ai custom-jobs create \
@@ -42,17 +43,18 @@ gcloud beta ai custom-jobs list \
 # Deploy the created model
 ## Push container image for prediction
 ```bash
-CONTAINER_IMAGE_NAME=lr-prediction
+CONTAINER_IMAGE_NAME=YOUR_PREDICTION_CONTAINER_IMAGE_NAME
 
-docker image build ./prediction -t $CONTAINER_IMAGE_NAME
-docker tag $CONTAINER_IMAGE_NAME gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME}:latest
-docker image push gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME}:latest
+gcloud builds submit \
+  --region=${REGION} \
+  --tag gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME} \
+  ./prediction
 ```
 
 ## Upload model artifact
 ```bash
 CONTAINER_IMAGE_URI=$(gcloud beta container images describe \
-  gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME}:latest \
+  gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME} \
   --format="value(image_summary.fully_qualified_digest)")
 
 ARTIFACT_URI=$(gcloud beta ai custom-jobs list \
