@@ -28,8 +28,6 @@ same as [logistic_regression](https://github.com/imaiyu625/vertexai-custom-model
 DISPLAY_NAME=dfm-criteo
 MACHINE_TYPE=n1-standard-4
 REGION=YOUR_REGION
-WORK_BUCKET=YOUR_GCS_BUCKET
-WORK_PATH=YOUR_GCS_PATH
 
 CONTAINER_IMAGE_URI=$(gcloud beta container images describe \
   gcr.io/${PROJECT_ID}/${CONTAINER_IMAGE_NAME}:latest \
