@@ -11,7 +11,13 @@ $m(\mathbf{x}_i) = \exp(\mathbf{w}_{\text{shape}}^{\top} \mathbf{x}_i)$ means th
 especially $m(\mathbf{x}_i) = 1$, then the same exponential distribution as in the original paper
 
 # Preprocessing data
-execute preprocess_criteo.py and upload data.csv to GCS
+```bash
+WORK_BUCKET=YOUR_GCS_BUCKET
+WORK_PATH=YOUR_GCS_PATH
+
+python3 preprocess_criteo.py
+gsutil cp data.csv gs://${WORK_BUCKET}/${WORK_PATH}/
+```
 
 # Create model
 ## Push container image for training
