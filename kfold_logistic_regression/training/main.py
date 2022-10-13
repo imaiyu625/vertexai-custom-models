@@ -13,10 +13,10 @@ from sklearn.model_selection import KFold
 
 # set env
 data = os.environ['data']
-n_splits = int(os.environ['BATCH_TASK_COUNT'])
-random_state = int(os.environ['random_state'])
-iter = int(os.environ['BATCH_TASK_INDEX'])
 model_dir = os.environ['model_dir']
+random_state = int(os.environ['random_state'])
+n_splits = int(os.environ['BATCH_TASK_COUNT'])
+iter = int(os.environ['BATCH_TASK_INDEX'])
 
 storage_client = storage.Client()
 
@@ -52,7 +52,6 @@ for i, (tr_indices, te_indices) in enumerate(kf.split(raw_data)):
         break
 
 xtr_, ytr_ = convert_data(tr_data)
-xte_, yte_ = convert_data(te_data)
 param = fit(xtr_, ytr_)
 
 # model file
@@ -70,6 +69,7 @@ with tempfile.NamedTemporaryFile(mode='wb') as temp:
 artifact_filename = 'meta.json'
 storage_path = os.path.join(prefix, artifact_filename)
 
+xte_, yte_ = convert_data(te_data)
 with tempfile.NamedTemporaryFile(mode='w') as temp:
     json.dump({
         'tr_indices': tr_indices.tolist(),
