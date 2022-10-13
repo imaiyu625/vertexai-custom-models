@@ -1,0 +1,32 @@
+{
+  "taskGroups": [
+    {
+      "taskSpec": {
+        "runnables": [
+          {
+            "container": {
+              "imageUri": "%s",
+              "entrypoint": "python3",
+              "commands": [
+                "/main.py"
+              ]
+            },
+            "environment": {
+              "variables": {
+                "data": "%s",
+                "model_dir": "%s",
+                "random_state": "%d"
+              }
+            }
+          }
+        ],
+        "maxRetryCount": 1
+      },
+      "taskCount": "%d",
+      "parallelism": "%d"
+    }
+  ],
+  "logsPolicy": {
+    "destination": "CLOUD_LOGGING"
+  }
+}
