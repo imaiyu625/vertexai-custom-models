@@ -1,11 +1,5 @@
 # Preprocessing data
-```bash
-WORK_BUCKET=YOUR_GCS_BUCKET
-WORK_PATH=YOUR_GCS_PATH
-
-python3 ../logistic_regression/preprocess_iris.py
-gsutil cp data.csv gs://${WORK_BUCKET}/${WORK_PATH}/
-```
+same as [logistic_regression](https://github.com/imaiyu625/vertexai-custom-models/blob/main/logistic_regression/README.md#preprocessing-data)
 
 # Create model
 ## Push container image for training
