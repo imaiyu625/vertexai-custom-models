@@ -22,7 +22,7 @@
         ],
         "computeResource": {
           "cpuMilli": 2000,
-          "memoryMib": 16000
+          "memoryMib": 8000
         },
         "maxRetryCount": 1
       },
@@ -34,7 +34,7 @@
     "instances": [
       {
         "policy": {
-          "machineType": "e2-highmem-2"
+          "machineType": "e2-standard-2"
         }
       }
     ]
