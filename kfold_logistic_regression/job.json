@@ -20,12 +20,25 @@
             }
           }
         ],
+        "computeResource": {
+          "cpuMilli": 2000,
+          "memoryMib": 16000
+        },
         "maxRetryCount": 1
       },
       "taskCount": "%d",
       "parallelism": "%d"
     }
   ],
+  "allocationPolicy": {
+    "instances": [
+      {
+        "policy": {
+          "machineType": "e2-highmem-2"
+        }
+      }
+    ]
+  },
   "logsPolicy": {
     "destination": "CLOUD_LOGGING"
   }
